@@ -1,0 +1,28 @@
+name: Python Microservice CI
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
+jobs:
+  build_and_test_python:
+    runs-on: ubuntu-latest
+    steps:
+      # 1) Descargar código
+      - uses: actions/checkout@v2
+
+      # 2) Instalar dependencias
+      - name: Install Dependencies
+        run: |
+          cd python-microservice
+          pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      # 3) Ejecutar Pruebas
+      - name: Run Tests
+        run: |
+          cd python-microservice
+          python -m unittest discover
+
